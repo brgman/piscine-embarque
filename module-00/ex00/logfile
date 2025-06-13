@@ -1,0 +1,44 @@
+➜  ex00 git:(main) ✗ make
+avr-gcc -mmcu=atmega328p -DF_CPU=16000000UL -0s -o main.bin main.c
+avr-gcc: error: unrecognized command line option ‘-0s’
+make: *** [Makefile:32: main.bin] Error 1
+➜  ex00 git:(main) ✗ make
+avr-gcc -mmcu=atmega328p -DF_CPU=16000000UL -Os -o main.bin main.c
+avr-objcopy -O ihex -R .eeprom main.bin main.hex
+avrdude -c arduino -p atmega328p -b 115200 -P /dev/ttyUSB0 -U flash:w:main.hex:i
+avrdude: ser_open(): can't open device "/dev/ttyUSB0": No such file or directory
+
+avrdude done.  Thank you.
+
+make: *** [Makefile:35: flash] Error 1
+➜  ex00 git:(main) ✗ make
+avr-objcopy -O ihex -R .eeprom main.bin main.hex
+avrdude -c arduino -p atmega328p -b 115200 -P /dev/ttyUSB0 -U flash:w:main.hex:i
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude: Device signature = 0x1e950f (probably m328p)
+avrdude: NOTE: "flash" memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "main.hex"
+avrdude: writing flash (138 bytes):
+
+Writing | ################################################## | 100% 0.04s
+
+avrdude: 138 bytes of flash written
+avrdude: verifying flash memory against main.hex:
+avrdude: load data flash data from input file main.hex:
+avrdude: input file main.hex contains 138 bytes
+avrdude: reading on-chip flash data:
+
+Reading | ################################################## | 100% 0.03s
+
+avrdude: verifying ...
+avrdude: 138 bytes of flash verified
+
+avrdude: safemode: Fuses OK (E:00, H:00, L:00)
+
+avrdude done.  Thank you.
