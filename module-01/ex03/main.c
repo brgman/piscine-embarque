@@ -6,7 +6,7 @@
 /*   By: abergman <abergman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:37:22 by abergman          #+#    #+#             */
-/*   Updated: 2025/06/18 15:43:30 by abergman         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:50:17 by abergman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int main() {
     TCCR1A |= (1 << COM1A1) | (1 << COM1B1);
 
     // Prédiviseur d’horloge :
-    TCCR1B |= (TCCR1B & ~(1 << CS11));
-    // TCCR1B |= (1 << CS12); // 256
+    TCCR1B |= (1 << CS12); // 256
     // TCCR1B = (TCCR1B & ~(1 << CS11)) | (1 << CS12) | (1 << CS10); // 1024
     
     // Définir la valeur TOP pour un PWM de 1 Hz (horloge 16 MHz)
