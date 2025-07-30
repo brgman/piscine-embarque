@@ -6,13 +6,14 @@
 /*   By: abergman <abergman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:37:22 by abergman          #+#    #+#             */
-/*   Updated: 2025/06/21 15:50:17 by abergman         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:45:13 by abergman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "uart.c"
 
 #define PWM_TOP 65535
 #define DUTY_STEP (PWM_TOP / 100)
@@ -27,6 +28,10 @@ ISR(TIMER1_OVF_vect) { // pour allume
 }
 
 int main() {
+    uart_init();                        // Инициализируем UART
+    stdout = &uart_output;             // Перенаправляем printf в UART
+    printf("Bonjour via UART !\n");
+
     // Activer PB0, PB1 (OC1A), PB2 (OC1B), PB4 comme sorties
     DDRB |= (1 << PB0) | (1 << PB1) | (1 << PB2) | (1 << PB4);
     
@@ -65,7 +70,15 @@ int main() {
     uint8_t pd2_is_pressed = 0;
     uint8_t pd4_is_pressed = 0;
 
+    // screen /dev/ttyUSB0 9600
+
+
     while (1) {
+        for (int i = 7; i >= 0; i--) {
+            printf("%d", (PIND & (1 << i)) ? 1 : 0);
+        }
+        printf("\n");
+        
         // Bouton SW1 : Augmenter le cycle de travail
         if (!(PIND & (1 << PD2))) {
             if (!pd2_is_pressed) {

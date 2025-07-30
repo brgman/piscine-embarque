@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AVR GDB",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.elf",
+            "miDebuggerPath": "/usr/bin/avr-gdb",
+            "cwd": "${workspaceFolder}",
+            "targetArchitecture": "avr",
+            "MIMode": "gdb",
+            "miDebuggerServerAddress": "localhost:4242",
+            "setupCommands": [
+                {
+                    "description": "Set remote target",
+                    "text": "target remote localhost:4242"
+                }
+            ]
+        }
+    ]
+}
